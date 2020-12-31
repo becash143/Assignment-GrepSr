@@ -163,6 +163,7 @@ startupProbe:
     port: 8090
   failureThreshold: 30
   periodSeconds: 10 
+```
 Note:
 
 ReadinessProbe check for the Application to get ready, Lets say if the Apllications runs at port 8090 and the port is accessible we can say the Apllication is ready. 
@@ -175,8 +176,8 @@ We’ve seen a program fail by exiting with a nonzero exit code. But workers can
 
                     
 5)We can enhance the performance of the Containers using the Following Objects in Kubernetes 
-i) we can use Horizontal Pod AutoScaler(HPA) to Autoscale Pods based on the CPU Utilization. 
-   The Replicas will autoscale based on the CPU utilization.
+i) we can use Horizontal Pod AutoScaler(HPA) to Autoscale Pods based on the CPU Utilization.The Replicas will autoscale based on the CPU utilization.
+
 ```C#
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
@@ -314,9 +315,8 @@ spec:
       restartPolicy: OnFailure
 
 ```
-
-b) Adding more worker node to the Kubernetes Cluster.
-c) Monitoring Container Logs Using ELK/EFK stack and Monitoring Container Metrics with Prometheus and Grafana
+ii) Adding more worker node to the Kubernetes Cluster.
+iii) Monitoring Container Logs Using ELK/EFK stack and Monitoring Container Metrics with Prometheus and Grafana
 ```C#
 cd ./ELK-Monitoring 
 
