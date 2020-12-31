@@ -11,7 +11,7 @@
 1) monitor the resources in the servers. 
 2) Limit and Request the Resources for Containers.
 3) Health check for all the Containers.
-4) Use Storage for Data Storage like S3, EFS ( incase od AWS). We can use NFS as well.
+4) Use Storage for Data Storage like S3, EFS ( incase of AWS). We can use NFS as well.
 5) We can enhance the performance of the Containers using the Following Objects in Kubernetes.
   i)Horizontal Pod AutoScaler(HPA) to Autoscale Pods based on the CPU Utilization.
   ii)pod Affinity Pod AntiAffiity Taints and Tolerations.
