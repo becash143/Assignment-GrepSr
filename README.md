@@ -140,7 +140,8 @@ resources:
       memory: 128 Mi   
      ```          
                
- 3) Health check for Containers. We use l ivenessProbe, Readiness Probe and Startup Probe to check the health status of Containers. Depending on the health check and Restart Policy Defined Containers are either are removed or restarted. 
+ 3) Health check for Containers. We can use  livenessProbe, Readiness Probe and Startup Probe to check the health status of Containers. Depending on the health check and Restart Policy Defined Containers are either are removed or restarted. 
+
  ```C#
  livenessProbe:
     httpGet:
@@ -148,14 +149,13 @@ resources:
       port: 8090
     initialDelaySeconds: 60
     periodSeconds: 300
-             
   readinessProbe:
       httpGet:
         path: /actuator/health
         port: 8090
       initialDelaySeconds: 60
       periodSeconds: 300
-      ```
+ ```
  ```C#     
 startupProbe:
   httpGet:
