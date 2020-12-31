@@ -1,0 +1,10 @@
+1- using postman/curl with post method
+
+get the exported dashboard that is saved as json
+ex: dashboard.json
+
+2-
+curl 'http://admin:admin@127.0.0.1:3000/api/dashboards/db' -X POST \
+        -H 'Content-Type: application/json;charset=UTF-8' --data-binary @dashboard.json
+
+        

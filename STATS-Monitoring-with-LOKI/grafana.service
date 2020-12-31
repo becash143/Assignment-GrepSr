@@ -1,0 +1,11 @@
+[Unit]
+Description=grafana
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/opt/logging-monitoring/grafana/bin/grafana-server -homepath /opt/logging-monitoring/grafana
+
+[Install]
+WantedBy=multi-user.target

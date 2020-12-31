@@ -1,0 +1,10 @@
+[Unit]
+Description=promtail
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/opt/logging-monitoring/promtail -config.file /opt/logging-monitoring/config-promtail.yml
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,10 @@
+[Unit]
+Description=loki
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/opt/logging-monitoring/loki -config.file /opt/logging-monitoring/config-loki.yml
+[Install]
+WantedBy=multi-user.target

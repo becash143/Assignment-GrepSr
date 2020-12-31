@@ -1,0 +1,85 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp
+  labels:
+    app: myapp
+spec:  
+  selector:
+    matchLabels:
+      app: myapp
+  replicas: 3
+  template:     
+    metadata:
+      labels:
+        app: myapp 
+    spec:
+      initContainers:
+        - name: db-check
+          image: mysql:8.0
+          imagePullPolicy: Always
+          env:
+            - name: HOST
+              value: mysql-service
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                 secretKeyRef:
+                    name: mysql-secret
+                    key: MYSQL_ROOT_PASSWORD
+            - name: PORT
+              value: '3306'
+          command: [ "sh", "-c" ]
+          args:
+            - echo starting;
+              chmod +x /tmp/my-config.sh;
+              sh /tmp/my-config.sh;
+              
+              echo done;
+          volumeMounts:
+             - name: workdir
+               mountPath: "/tmp"               
+      containers:
+        - image: bikclu/myapplication:200908-91ba4d8
+          name: myapp
+          imagePullPolicy: Always
+          env:
+           - name: SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT
+             value: org.hibernate.dialect.MySQL8Dialect
+           - name: SPRING_DATASOURCE_DRIVER-CLASS-NAME
+             value: com.mysql.cj.jdbc.Driver
+           - name: SPRING_DATASOURCE_URL
+             value: jdbc:mysql://mysql-service/assignment?allowPublicKeyRetrieval=true
+           - name: SPRING_DATASOURCE_USERNAME
+             value: root
+           - name: MYSQL_ROOT_HOST 
+             value: '%'
+           - name: MYSQL_ROOT_PASSWORD
+             valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: MYSQL_ROOT_PASSWORD               
+          resources:
+             requests:
+               cpu: 50m
+               memory: 128Mi
+          livenessProbe:
+             httpGet:
+               path: /persons/
+               port: 8090
+             initialDelaySeconds: 60
+             periodSeconds: 60
+             
+          readinessProbe:
+             httpGet:
+               path: /actuator/health
+               port: 8090
+             initialDelaySeconds: 60
+             periodSeconds: 60
+                  
+          ports:
+           - containerPort: 8090
+
+      volumes:
+       - name: workdir
+         configMap:
+           name: init-script

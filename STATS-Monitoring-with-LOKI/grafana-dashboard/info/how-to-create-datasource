@@ -1,0 +1,16 @@
+
+list all datasources
+
+curl 'http://admin:admin@127.0.0.1:3000/api/datasources'
+
+
+prometheus datasource
+
+curl 'http://admin:admin@127.0.0.1:3000/api/datasources' -X POST \
+  -H 'Content-Type: application/json;charset=UTF-8' --data-binary '{"name":"Prometheus","type":"prometheus","url":"http://localhost:9090","typeLogoUrl":"public/app/plugins/datasource/prometheus/img/prometheus_logo.svg","access":"proxy","isDefault":true,"database":"","user":"","password":"","basicAuth":false,"jsonData":{},"readOnly":false}'
+
+
+loki datasource
+
+curl 'http://admin:admin@127.0.0.1:3000/api/datasources' -X POST \
+-H 'Content-Type: application/json;charset=UTF-8' --data-binary '{"name":"Loki","type":"loki","url":"http://localhost:3100","typeLogoUrl":"public/app/plugins/datasource/loki/img/loki_icon.svg","access":"proxy","isDefault":true,"database":"","user":"","password":"","basicAuth":false,"jsonData":{},"readOnly":false}'

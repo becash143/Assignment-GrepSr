@@ -1,0 +1,15 @@
+[Unit]
+Description=Prometheus
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/opt/logging-monitoring/prometheus/prometheus \
+    --config.file /opt/logging-monitoring/prometheus/prometheus.yml \
+    --storage.tsdb.path /var/lib/prometheus/ \
+    --web.console.templates=/opt/logging-monitoring/prometheus/consoles \
+    --web.console.libraries=/opt/logging-monitoring/prometheus/console_libraries
+
+[Install]
+WantedBy=multi-user.target

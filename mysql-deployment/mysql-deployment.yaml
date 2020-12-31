@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - image: mysql:8
+          name: mysql
+          env:
+            - name: MYSQL_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: mysql-config
+                  key: MYSQL_DATABASE
+             # value: assignment
+            - name: MYSQL_USERNAME
+              valueFrom:
+                 secretKeyRef:
+                    name: user-info
+                    key: MYSQL_USERNAME 
+            - name: MYSQL_ROOT_HOST 
+              value: '%'
+              #valueFrom:
+               # configMapKeyRef:
+                #  name: mysql-config
+                 # key: MYSQL_DATABASE
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: MYSQL_ROOT_PASSWORD
+          livenessProbe:
+            exec:
+              command:
+              - bash
+              - "-c"
+              - |
+                set -ex
+                mysqladmin -p${MYSQL_ROOT_PASSWORD} ping &> /dev/null
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          readinessProbe:
+            exec:
+              command:
+              - bash
+              - "-c"
+              - |
+                set ex
+                mysql  -h 127.0.0.1 -u${MYSQL_USERNAME} -p${MYSQL_ROOT_PASSWORD} -e "SELECT 1" &> /dev/null
+            initialDelaySeconds: 15
+            periodSeconds: 10        
+          ports:
+            - containerPort: 3306
+              name: mysql-port
+          volumeMounts:
+            - name: mysql-storage
+              mountPath: /docker-entrypoint-initdb.d
+              
+            
+      volumes:     
+        - name: mysql-storage
+          configMap:
+            name: mysql-config
+

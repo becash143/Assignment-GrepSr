@@ -1,0 +1,11 @@
+[Unit]
+Description=Node Exporter
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/opt/logging-monitoring/node_exporter/node_exporter
+
+[Install]
+WantedBy=multi-user.target

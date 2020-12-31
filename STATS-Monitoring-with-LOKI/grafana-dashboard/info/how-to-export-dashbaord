@@ -1,0 +1,47 @@
+1- using postman with get method 
+
+http://admin:admin@67.205.187.13:3000/api/dashboards/uid/${uid}
+
+For ${uid} go to grafana dashboard get the json dashboard in the end of the file you will find the below
+
+ex: "uid": "RC8uCftGz"
+
+Once the get method return the output save it to a json file localy and modify the below
+1- delete meta close from json
+
+ex:
+meta": {
+        "type": "db",
+        "canSave": true,
+        "canEdit": true,
+        "canAdmin": true,
+        "canStar": true,
+        "slug": "node-exporter-for-prometheus-dashboard",
+        "url": "/d/RC8uCftGz/node-exporter-for-prometheus-dashboard",
+        "expires": "0001-01-01T00:00:00Z",
+        "created": "2020-10-26T10:00:04Z",
+        "updated": "2020-10-26T10:00:04Z",
+        "updatedBy": "admin",
+        "createdBy": "admin",
+        "version": 1,
+        "hasAcl": false,
+        "isFolder": false,
+        "folderId": 0,
+        "folderTitle": "General",
+        "folderUrl": "",
+        "provisioned": false,
+        "provisionedExternalId": ""
+    }
+
+2- change dashboard id = null 
+ex:
+"id": null,
+
+3- in the end of the file remove uid
+
+4- before the last curly braket add the below
+    },
+    "folderId": 0,
+    "overwrite": false
+
+    
