@@ -119,9 +119,9 @@ crontab -e
 Alert is written for Disk Usage only, we can do same for CPU and memory as well.
 
 Note: This is just an appraoch to monitor servers using shell script, the servers can be monitored using tools like prometheus using node exporter to collect metrices from linux servers and visualized using Grafana. Monitoring Using Grafana-LOKI is written in folder STATS-Monitoring-with-LOKI. 
-
+```C#
 cd ./STATS-Monitoring-with-LOKI
-
+```
 ./monitoring.sh
 
 Some configurations must be modified. Instead of localhost we can provide the IP of the Servers we want to monitor.
@@ -138,7 +138,7 @@ resources:
     limits:
       cpu: 50m
       memory: 128 Mi   
-     ```          
+ ```          
                
  3) Health check for Containers. We can use  livenessProbe, Readiness Probe and Startup Probe to check the health status of Containers. Depending on the health check and Restart Policy Defined Containers are either are removed or restarted. 
 
