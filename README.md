@@ -175,9 +175,8 @@ We’ve seen a program fail by exiting with a nonzero exit code. But workers can
    We can use NFS as well.
 
                     
-5)We can enhance the performance of the Containers using the Following Objects in Kubernetes 
+5)We can enhance the performance of the Containers using the Following Objects in Kubernetes. 
 i) we can use Horizontal Pod AutoScaler(HPA) to Autoscale Pods based on the CPU Utilization.The Replicas will autoscale based on the CPU utilization.
-
 ```C#
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
@@ -197,7 +196,8 @@ spec:
   6) Use the Objects like Node Affinity, Pod  Affinity, Pod AntiAffinity, Taints and tolerations to schedule the containers in desired worker nodes or restrict the containers in the desired  
    worker-nodes.
 
-We need a deployment manifest to run a a Kubernetes cluster. This is just a sample deployment.yaml file for single application, with 3 replicas.Replicas will be distributed along the worker-nodes inorderto load balance based on the Objects defined in the deployment Manifest file. For every applications we need to write a deployment.yaml
+  We need a deployment manifest to run a a Kubernetes cluster. This is just a sample deployment.yaml file for single application, with 3 replicas.Replicas will be distributed along the worker-nodes 
+  inorderto load balance based on the Objects defined in the deployment Manifest file. For every applications we need to write a deployment.yaml
 
 
 The deployment consist of initContainers to check the status of the database. 
